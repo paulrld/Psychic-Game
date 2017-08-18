@@ -16,7 +16,7 @@
         <h1>computer chose: <span id="computer-text"><strong>nothing</strong></span></h1>
         <h2>wins: <span id="wins-text"><strong>0</strong></span></h2>
         <h2>losses: <span id="losses-text"><strong>0</strong></span></h2>
-        <h2>ties: <span id="ties-text"><strong>9</strong></span></h2>
+        <h2>guesses: <span id="guesses-text"><strong>9</strong></span></h2>
       </div>
     </div>
   </div>
@@ -33,15 +33,26 @@
     var lost = 0;
     var tie = 0;
     var numberOfGuesses = 9;
-    /*Test each input exist in the array*/
+
+    //set stuff for displaying document
+    var userText = document.getElementById("user-text");
+    var computerText = document.getElementById("computer-text");
+    var winsText = document.getElementById("wins-text");
+    var lossesText = document.getElementById("losses-text");
+    var guessesText = document.getElementById("guesses-text");
+
+
+
+//FUNCTIONS==========================================
+    //Test each input exist in the array
     function checkValidInput (someArray,value) {
       return someArray.includes(value);
     }
-
+    //randomize input selection
     function randomizeSelection(someArray) {
       return someArray[Math.floor(Math.random() * someArray.length)];
     }
-
+    //get random computer guess
     var computerGuess = randomizeSelection(computerChoices);
 
     // This function is run whenever the user presses a key.
@@ -50,64 +61,51 @@
       // Determines which key was pressed.
       var userGuess = event.key;
 
-
-
       if (checkValidInput(computerChoices,userGuess)) {
-        var userText = document.getElementById("user-text");
-        var computerText = document.getElementById("computer-text");
-
-        var winsText = document.getElementById("wins-text");
-        var lossesText = document.getElementById("losses-text");
-        var tiesText = document.getElementById("ties-text");
-
-//querySelector for classes or id or anything ?
-
-        // Randomly chooses a choice from the options array. This is the Computer's guess. get computerChoice when  number of guesses is 9
-
+        //decrease number of user guesses by 1
+        numberOfGuesses= numberOfGuesses-1;
         // Alerts the key the user pressed (userGuess).
         console.log("User guess: " + userGuess);
 
         // Alerts the Computer's guess.
         console.log("Computer guess: " + computerGuess);
-        //user wins conditional stuff
-        //computer wins update computerGuess
-        if(userGuess == computerGuess) {
-          console.log("user wins!");
-          wins = wins + 1;
-          numberOfGuesses = 9;
-          computerGuess = randomizeSelection(computerChoices);
-          tiesText.textContent=numberOfGuesses;
-        }
-        else {
-          /*console.log("computer wins!");*/
+
+        // user guesses right
+          // increase win score by 1
+          // reset number of guesses to max
+          // select new computer guess
+          if(userGuess == computerGuess) {
+            console.log("user wins!");
+            wins = wins + 1;
+            numberOfGuesses = 9;
+            computerGuess = randomizeSelection(computerChoices);
+          }
+          else {
+          }
+        // user runs out of guesses
+          // increase lose score by 1
+          // reset number of guesses to max
+          // select new computer guess
+          if(numberOfGuesses==0) {
+            lost = lost + 1;
+            numberOfGuesses = 9;
+            computerGuess = randomizeSelection(computerChoices);
+            console.log(numberOfGuesses)
+          }
+
+        else{
           
         }
-
-        console.log("wins: " + wins);
-        console.log("losses: " + lost);
-        console.log("ties: " + tie);
-        /*        console.log("wins: " + wins ", lose:" + lose)*/
+        
+        // update stuff on screen
         winsText.textContent=wins;
         lossesText.textContent=lost;
-        
+
         computerText.textContent=computerGuess;
         userText.textContent=userGuess;
-        /*decrease number of guesses after a user guesses*/
-        
-        tiesText.textContent=numberOfGuesses;
-        /*computer wins when number of guesses goes to 0 */
-        /*get a new computer guess*/
-        /*reset game*/
-        if(numberOfGuesses==0) {
-          numberOfGuesses = 9;
-          lost = lost + 1;
-          lossesText.textContent=lost;
-          computerGuess = randomizeSelection(computerChoices);
-          tiesText.textContent=numberOfGuesses;
-        }
-        else{
-          numberOfGuesses= numberOfGuesses-1;
-        }
+
+        guessesText.textContent=numberOfGuesses;
+
       }
     };
 
