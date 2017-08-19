@@ -63,8 +63,9 @@
 
       // Determines which key was pressed.
       var userGuess = event.key;
-      userChoices.push(userGuess);
+
       if (checkValidInput(computerChoices,userGuess)) {
+        userChoices.push(userGuess);
         //decrease number of user guesses by 1
         numberOfGuesses= numberOfGuesses-1;
         // Alerts the key the user pressed (userGuess).
@@ -98,10 +99,10 @@
             userChoices = [];//clear array of userChoices
           }
 
-        else{
+          else{
+            
+          }
           
-        }
-        
         // update stuff on screen
         winsText.textContent=wins;
         lossesText.textContent=lost;
