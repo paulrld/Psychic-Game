@@ -12,11 +12,13 @@
   <div class="row">
     <div class="col-md-offset-2 col-md-8">
       <div class="jumbotron">
-        <h1>you chose: <span id="user-text"><strong>nothing</strong></span></h1>
-        <h1>computer chose: <span id="computer-text"><strong>nothing</strong></span></h1>
-        <h2>wins: <span id="wins-text"><strong>0</strong></span></h2>
-        <h2>losses: <span id="losses-text"><strong>0</strong></span></h2>
-        <h2>guesses: <span id="guesses-text"><strong>9</strong></span></h2>
+        <h1>The Psychic Game</h1>
+        <p>Guess what letter I'm thinking of</p>
+        <p>wins: <span id="wins-text">0</span></p>
+        <p>losses: <span id="losses-text">0</span></p>
+        <p>Guesses Left: <span id="guesses-text">9</span></p>
+        <p>Your Guesses so far: <span id="user-text"></span></p>
+        <p>dont look! lol computer chose: <span id="computer-text"><strong>nothing</strong></span></p>
       </div>
     </div>
   </div>
@@ -29,6 +31,7 @@
 
     // Creates an array that lists out all of the options (Rock, Paper, or Scissors).
     var computerChoices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    var userChoices = [];
     var wins = 0;
     var lost = 0;
     var tie = 0;
@@ -60,7 +63,7 @@
 
       // Determines which key was pressed.
       var userGuess = event.key;
-
+      userChoices.push(userGuess);
       if (checkValidInput(computerChoices,userGuess)) {
         //decrease number of user guesses by 1
         numberOfGuesses= numberOfGuesses-1;
@@ -79,6 +82,7 @@
             wins = wins + 1;
             numberOfGuesses = 9;
             computerGuess = randomizeSelection(computerChoices);
+            userChoices = [];//clear array of userChoices
           }
           else {
           }
@@ -91,6 +95,7 @@
             numberOfGuesses = 9;
             computerGuess = randomizeSelection(computerChoices);
             console.log(numberOfGuesses)
+            userChoices = [];//clear array of userChoices
           }
 
         else{
@@ -102,7 +107,7 @@
         lossesText.textContent=lost;
 
         computerText.textContent=computerGuess;
-        userText.textContent=userGuess;
+        userText.textContent=userChoices;
 
         guessesText.textContent=numberOfGuesses;
 
